@@ -1,0 +1,76 @@
+package com.tshahakurov.disneyapp.view.fragment.heroinfo
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.tshahakurov.disneyapp.R
+import com.tshahakurov.disneyapp.databinding.FragmentHeroInfoBinding
+import com.tshahakurov.disneyapp.databinding.FragmentHeroesListBinding
+import com.tshahakurov.disneyapp.model.Hero
+import com.tshahakurov.disneyapp.view.fragment.heroinfo.adapter.CharacteristicsAdapter
+import com.tshahakurov.disneyapp.view.fragment.heroinfo.adapter.CharacteristicsViewHolder
+import dagger.hilt.android.AndroidEntryPoint
+
+private const val HERO_URL_KEY = "hero_url"
+private const val DEFAULT_HERO = "default_hero"
+
+@AndroidEntryPoint
+class HeroInfoFragment : Fragment() {
+
+    private var _binding: FragmentHeroInfoBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: HeroInfoViewModel by viewModels()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentHeroInfoBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getHeroByUrl(arguments?.getString(HERO_URL_KEY) ?: DEFAULT_HERO)
+        viewModel.getList()
+        viewModel.list.observe(viewLifecycleOwner) {
+            setList(it)
+        }
+
+        viewModel.hero.observe(viewLifecycleOwner) { hero ->
+            binding.heroName.text = hero.name
+        }
+
+    }
+
+    private fun setList(list: ArrayList<Hero.Characteristic>) {
+        binding.characteristicsRecycler.run {
+            if (adapter == null) {
+                adapter = CharacteristicsAdapter()
+                layoutManager = LinearLayoutManager(requireContext())
+            }
+            (adapter as? CharacteristicsAdapter)?.submitList(list)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    companion object {
+        fun getFragment(heroUrl: String): HeroInfoFragment {
+            return HeroInfoFragment().apply {
+                arguments = bundleOf(
+                    HERO_URL_KEY to heroUrl
+                )
+            }
+        }
+    }
+}
