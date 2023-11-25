@@ -6,4 +6,6 @@
     <string name="all_button">All</string>
     <string name="favorite_button">Favorite</string>
     <string name="default_hero_name">Hero Def</string>
+
+    <string name="no_image_url">https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg</string>
 </resources>

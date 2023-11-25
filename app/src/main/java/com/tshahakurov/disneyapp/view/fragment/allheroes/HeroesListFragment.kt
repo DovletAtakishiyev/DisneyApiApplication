@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,19 +36,27 @@ class HeroesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.list.observe(viewLifecycleOwner) {
-            setList(it)
+
+        with(viewModel) {
+            getHeroList()
+
+            heroList.observe(viewLifecycleOwner) {
+                setList(it)
+            }
+
+            isLoading.observe(viewLifecycleOwner) {
+                binding.progressBarLayout.root.isVisible = it
+            }
         }
-        viewModel.getList()
+
     }
 
     private fun setList(list: ArrayList<Hero>) {
         binding.allHeroesRecycler.run {
             if (adapter == null) {
-                adapter = HeroesListAdapter { url ->
-                    Log.d("suita", url)
+                adapter = HeroesListAdapter { id ->
                     parentFragmentManager.beginTransaction()
-                        .replace(R.id.container, HeroInfoFragment.getFragment(url))
+                        .add(R.id.container, HeroInfoFragment.getFragment(id))
                         .addToBackStack(null)
                         .commit()
                 }

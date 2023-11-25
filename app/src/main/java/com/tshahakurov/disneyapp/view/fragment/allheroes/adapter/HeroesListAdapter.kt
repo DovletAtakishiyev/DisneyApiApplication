@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.tshahakurov.disneyapp.databinding.HeroItemBinding
 import com.tshahakurov.disneyapp.model.Hero
 
-class HeroesListAdapter(private val onClick: (String) -> Unit) :
+class HeroesListAdapter(private val onClick: (Int) -> Unit) :
     ListAdapter<Hero, HeroViewHolder>(object : DiffUtil.ItemCallback<Hero>() {
         override fun areItemsTheSame(oldItem: Hero, newItem: Hero) = false
         override fun areContentsTheSame(oldItem: Hero, newItem: Hero) = false
@@ -32,14 +32,19 @@ class HeroesListAdapter(private val onClick: (String) -> Unit) :
 
 class HeroViewHolder(private val binding: HeroItemBinding) : ViewHolder(binding.root) {
 
-    fun bind(hero: Hero, onClick: (String) -> Unit) {
-        binding.heroImage.run {
-            Glide.with(binding.root.context)
-                .load(hero.imageUrl)
-                .into(this)
-        }
-        binding.root.setOnClickListener{
-            onClick(hero.url)
+    fun bind(hero: Hero, onClick: (Int) -> Unit) {
+        with(binding) {
+            root.setOnClickListener {
+                onClick(hero.id)
+            }
+
+            heroImage.run {
+                Glide.with(root.context)
+                    .load(hero.imageUrl)
+                    .into(this)
+            }
+
+            heroName.text = hero.name
         }
     }
 }

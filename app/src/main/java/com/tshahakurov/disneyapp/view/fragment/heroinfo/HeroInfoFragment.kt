@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.tshahakurov.disneyapp.R
+import com.bumptech.glide.Glide
 import com.tshahakurov.disneyapp.databinding.FragmentHeroInfoBinding
-import com.tshahakurov.disneyapp.databinding.FragmentHeroesListBinding
 import com.tshahakurov.disneyapp.model.Hero
 import com.tshahakurov.disneyapp.view.fragment.heroinfo.adapter.CharacteristicsAdapter
-import com.tshahakurov.disneyapp.view.fragment.heroinfo.adapter.CharacteristicsViewHolder
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val HERO_URL_KEY = "hero_url"
-private const val DEFAULT_HERO = "default_hero"
+private const val HERO_ID_KEY = "hero_id"
+private const val DEFAULT_HERO_ID = 308
 
 @AndroidEntryPoint
 class HeroInfoFragment : Fragment() {
@@ -37,14 +36,24 @@ class HeroInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getHeroByUrl(arguments?.getString(HERO_URL_KEY) ?: DEFAULT_HERO)
-        viewModel.getList()
-        viewModel.list.observe(viewLifecycleOwner) {
-            setList(it)
-        }
+        viewModel.getHeroById(arguments?.getInt(HERO_ID_KEY) ?: DEFAULT_HERO_ID)
 
         viewModel.hero.observe(viewLifecycleOwner) { hero ->
-            binding.heroName.text = hero.name
+            with(binding) {
+                setList(hero.characteristicList)
+
+                heroName.text = hero.name
+
+                heroImage.run {
+                    Glide.with(requireContext())
+                        .load(hero.imageUrl)
+                        .into(this)
+                }
+            }
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner){
+            binding.progressBarLayout.root.isVisible = it
         }
 
     }
@@ -65,10 +74,10 @@ class HeroInfoFragment : Fragment() {
     }
 
     companion object {
-        fun getFragment(heroUrl: String): HeroInfoFragment {
+        fun getFragment(heroId: Int): HeroInfoFragment {
             return HeroInfoFragment().apply {
                 arguments = bundleOf(
-                    HERO_URL_KEY to heroUrl
+                    HERO_ID_KEY to heroId
                 )
             }
         }
