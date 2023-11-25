@@ -6,6 +6,7 @@ data class Hero(
     val imageUrl: String,
     val characteristicList: ArrayList<Characteristic>
 ) {
+
     data class Characteristic(
         val key: String = "",
         val value: ArrayList<String> = arrayListOf()

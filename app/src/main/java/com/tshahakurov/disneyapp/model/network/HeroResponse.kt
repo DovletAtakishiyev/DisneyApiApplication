@@ -26,5 +26,5 @@ data class HeroResponse(
         val allies: ArrayList<String>,
         @SerializedName("enemies")
         val enemies: ArrayList<String>,
-        )
+    )
 }

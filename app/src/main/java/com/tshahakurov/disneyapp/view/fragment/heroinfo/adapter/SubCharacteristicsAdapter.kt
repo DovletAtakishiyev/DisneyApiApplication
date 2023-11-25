@@ -13,6 +13,7 @@ class SubCharacteristicsAdapter : ListAdapter<String, SubCharacteristicsViewHold
         override fun areContentsTheSame(oldItem: String, newItem: String) = false
     }
 ) {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

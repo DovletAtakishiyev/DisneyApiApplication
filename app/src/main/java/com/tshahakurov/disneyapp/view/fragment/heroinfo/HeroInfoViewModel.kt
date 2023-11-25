@@ -1,6 +1,5 @@
 package com.tshahakurov.disneyapp.view.fragment.heroinfo
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +8,6 @@ import com.tshahakurov.disneyapp.repository.HeroRepository
 import com.tshahakurov.disneyapp.util.toHero
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,12 +19,12 @@ class HeroInfoViewModel @Inject constructor(
     val hero = MutableLiveData<Hero>()
     val isLoading = MutableLiveData(false)
 
-    fun getHeroById(id: Int){
+    fun getHeroById(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             isLoading.postValue(true)
             val response = repository.getHeroById(id)
 
-            if (response.isSuccessful){
+            if (response.isSuccessful) {
                 response.body()?.toHero().let {
                     hero.postValue(it)
                 }

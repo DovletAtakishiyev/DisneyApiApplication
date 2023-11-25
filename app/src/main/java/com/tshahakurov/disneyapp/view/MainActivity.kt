@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tshahakurov.disneyapp.R
 import com.tshahakurov.disneyapp.view.fragment.allheroes.HeroesListFragment
-import com.tshahakurov.disneyapp.view.fragment.allheroes.adapter.HeroesListAdapter
-import com.tshahakurov.disneyapp.view.fragment.heroinfo.HeroInfoFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

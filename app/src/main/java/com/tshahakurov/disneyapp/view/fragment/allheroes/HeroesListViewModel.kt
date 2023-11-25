@@ -1,10 +1,8 @@
 package com.tshahakurov.disneyapp.view.fragment.allheroes
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tshahakurov.disneyapp.db.DB
 import com.tshahakurov.disneyapp.model.Hero
 import com.tshahakurov.disneyapp.repository.HeroListRepository
 import com.tshahakurov.disneyapp.util.toHeroList

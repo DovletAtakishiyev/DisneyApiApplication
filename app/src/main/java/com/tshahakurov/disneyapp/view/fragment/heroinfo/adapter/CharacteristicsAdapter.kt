@@ -14,7 +14,8 @@ import com.tshahakurov.disneyapp.model.Hero
 class CharacteristicsAdapter : ListAdapter<Hero.Characteristic, CharacteristicsViewHolder>
     (object : DiffUtil.ItemCallback<Hero.Characteristic>() {
     override fun areItemsTheSame(oldItem: Hero.Characteristic, newItem: Hero.Characteristic) = false
-    override fun areContentsTheSame(oldItem: Hero.Characteristic, newItem: Hero.Characteristic) = false
+    override fun areContentsTheSame(oldItem: Hero.Characteristic, newItem: Hero.Characteristic) =
+        false
 }) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacteristicsViewHolder {
