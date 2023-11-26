@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/default_background"
-    tools:context=".view.fragment.heroinfo.HeroInfoFragment"
+    android:clickable="true"
     android:focusable="true"
-    android:clickable="true">
+    tools:context=".view.fragment.heroinfo.HeroInfoFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,9 +20,9 @@
             <ImageView
                 android:id="@+id/hero_image"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_height="@dimen/main_image_height"
+                android:layout_marginHorizontal="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_16"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -31,10 +31,10 @@
             <TextView
                 android:id="@+id/hero_name"
                 style="@style/DefaultText"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginVertical="16dp"
+                android:layout_marginHorizontal="@dimen/dp_24"
+                android:layout_marginVertical="@dimen/dp_16"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/hero_image"
@@ -44,8 +44,8 @@
                 android:id="@+id/characteristics_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:padding="8dp"
+                android:layout_margin="@dimen/dp_8"
+                android:padding="@dimen/dp_8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/hero_name"
@@ -56,9 +56,9 @@
 
     <include
         android:id="@+id/progress_bar_layout"
+        layout="@layout/progress_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        layout="@layout/progress_layout" />
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
