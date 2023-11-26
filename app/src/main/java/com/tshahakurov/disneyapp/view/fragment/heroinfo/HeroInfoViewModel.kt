@@ -30,7 +30,6 @@ class HeroInfoViewModel @Inject constructor(
                 }
             }
             isLoading.postValue(false)
-//            Log.d("suita", "id = ${id}")
         }
     }
 }

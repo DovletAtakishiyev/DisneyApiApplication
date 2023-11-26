@@ -15,6 +15,8 @@ import com.tshahakurov.disneyapp.view.fragment.allheroes.adapter.HeroesListAdapt
 import com.tshahakurov.disneyapp.view.fragment.heroinfo.HeroInfoFragment
 import dagger.hilt.android.AndroidEntryPoint
 
+private const val GRID_COLUMNS = 2
+
 @AndroidEntryPoint
 class HeroesListFragment : Fragment() {
 
@@ -56,7 +58,7 @@ class HeroesListFragment : Fragment() {
                         .addToBackStack(null)
                         .commit()
                 }
-                layoutManager = GridLayoutManager(requireContext(), 2)
+                layoutManager = GridLayoutManager(requireContext(), GRID_COLUMNS)
             }
             (adapter as? HeroesListAdapter)?.submitList(list)
         }

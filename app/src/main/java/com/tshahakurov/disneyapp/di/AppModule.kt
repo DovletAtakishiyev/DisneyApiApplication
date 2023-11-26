@@ -11,6 +11,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+private const val BASE_URL = "https://api.disneyapi.dev/"
+
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
@@ -19,7 +21,7 @@ class AppModule {
     @Singleton
     fun provideDisneyApi(): DisneyApi {
         return Retrofit.Builder()
-            .baseUrl("https://api.disneyapi.dev/")
+            .baseUrl(BASE_URL)
             .client(
                 OkHttpClient.Builder()
                     .addInterceptor(HttpLoggingInterceptor().apply {

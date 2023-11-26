@@ -9,9 +9,9 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.tshahakurov.disneyapp.databinding.FragmentHeroInfoBinding
 import com.tshahakurov.disneyapp.model.Hero
+import com.tshahakurov.disneyapp.util.loadImageUrl
 import com.tshahakurov.disneyapp.view.fragment.heroinfo.adapter.CharacteristicsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,11 +44,7 @@ class HeroInfoFragment : Fragment() {
 
                 heroName.text = hero.name
 
-                heroImage.run {
-                    Glide.with(requireContext())
-                        .load(hero.imageUrl)
-                        .into(this)
-                }
+                heroImage.loadImageUrl(hero.imageUrl)
             }
         }
 

@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.bumptech.glide.Glide
 import com.tshahakurov.disneyapp.databinding.HeroItemBinding
 import com.tshahakurov.disneyapp.model.Hero
+import com.tshahakurov.disneyapp.util.loadImageUrl
 
 class HeroesListAdapter(private val onClick: (Int) -> Unit) :
     ListAdapter<Hero, HeroViewHolder>(object : DiffUtil.ItemCallback<Hero>() {
@@ -38,11 +38,7 @@ class HeroViewHolder(private val binding: HeroItemBinding) : ViewHolder(binding.
                 onClick(hero.id)
             }
 
-            heroImage.run {
-                Glide.with(root.context)
-                    .load(hero.imageUrl)
-                    .into(this)
-            }
+            heroImage.loadImageUrl(hero.imageUrl)
 
             heroName.text = hero.name
         }

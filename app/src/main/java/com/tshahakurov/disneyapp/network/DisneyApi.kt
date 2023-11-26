@@ -7,6 +7,8 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+private const val DEFAULT_PAGE_SIZE = 149
+
 interface DisneyApi {
 
     @GET("character/206")
@@ -16,5 +18,5 @@ interface DisneyApi {
     suspend fun getHeroById(@Path("id") id: String): Response<HeroResponse>
 
     @GET("character")
-    suspend fun getHeroList(@Query("pageSize") count: Int = 149): Response<HeroListResponse>
+    suspend fun getHeroList(@Query("pageSize") count: Int = DEFAULT_PAGE_SIZE): Response<HeroListResponse>
 }
